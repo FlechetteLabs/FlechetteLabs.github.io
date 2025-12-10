@@ -3,8 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fléchette Labs - Premier AI safety and security consulting. Expert red team leadership serving government and Fortune 50 organizations with cutting-edge AI research and security assessments.">
+    <meta property="og:title" content="Fléchette Labs - AI Safety & Security Consulting">
+    <meta property="og:description" content="Top-tier AI safety and security R&D and assessments led by experienced red team professionals.">
+    <meta property="og:type" content="website">
     <title>Fléchette Labs</title>
     <style>
+        :root {
+            --accent-color: #6B9BD1;
+            --accent-color-dim: rgba(107, 155, 209, 0.2);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,7 +22,7 @@
 
         body {
             background-color: #2A2E35;
-            background-image: 
+            background-image:
                 repeating-linear-gradient(
                     45deg,
                     transparent,
@@ -39,16 +48,60 @@
                     transparent 50%
                 );
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            color: #F5F5F5;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        nav {
+            background-color: rgba(42, 46, 53, 0.95);
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        nav ul {
+            list-style: none;
             display: flex;
             justify-content: center;
-            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: #F5F5F5;
+            text-decoration: none;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--accent-color);
+        }
+
+        .page {
+            display: none;
             min-height: 100vh;
-            overflow: hidden;
+            padding: 6rem 2rem 2rem;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .page.active {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
 
         .container {
-            text-align: center;
-            padding: 2rem;
+            max-width: 800px;
+            width: 100%;
         }
 
         h1 {
@@ -56,7 +109,189 @@
             font-size: clamp(3rem, 8vw, 6rem);
             font-weight: 300;
             letter-spacing: 0.02em;
-            animation: fadeIn 1.5s ease-in;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        h2 {
+            color: #F5F5F5;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 300;
+            letter-spacing: 0.02em;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        p {
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            color: #D0D0D0;
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #F5F5F5;
+            font-weight: 300;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            color: #F5F5F5;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            background-color: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px var(--accent-color-dim);
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        button {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #F5F5F5;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.75rem 2rem;
+            font-size: 1rem;
+            font-weight: 300;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        button:hover:not(:disabled) {
+            background-color: var(--accent-color-dim);
+            border-color: var(--accent-color);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .service-item {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid var(--accent-color);
+            border-radius: 4px;
+        }
+
+        .service-item h3 {
+            color: #F5F5F5;
+            font-weight: 400;
+            margin-bottom: 0.75rem;
+        }
+
+        .service-item ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .service-item li {
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .service-item li:before {
+            content: "▸";
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+        }
+
+        #form-status {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 4px;
+            display: none;
+        }
+
+        #form-status.success {
+            display: block;
+            background-color: rgba(76, 175, 80, 0.2);
+            border: 1px solid rgba(76, 175, 80, 0.4);
+            color: #90EE90;
+        }
+
+        #form-status.error {
+            display: block;
+            background-color: rgba(244, 67, 54, 0.2);
+            border: 1px solid rgba(244, 67, 54, 0.4);
+            color: #FFB3B3;
+        }
+
+        .tagline {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            font-weight: 200;
+            letter-spacing: 0.1em;
+            color: rgba(245, 245, 245, 0.7);
+            text-align: center;
+            margin-top: -1rem;
+            animation: fadeInDelayed 1s ease-in 0.5s both;
+        }
+
+        .honeypot {
+            position: absolute;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+        }
+
+        footer {
+            background-color: rgba(42, 46, 53, 0.95);
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        footer p {
+            color: #A0A0A0;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        footer nav {
+            position: static;
+            padding: 0;
+            box-shadow: none;
+            background: transparent;
+            margin-bottom: 1rem;
+        }
+
+        footer nav ul {
+            gap: 1.5rem;
+        }
+
+        footer nav a {
+            font-size: 0.9rem;
+        }
+
+        label .required {
+            color: var(--accent-color);
+            margin-left: 0.25rem;
         }
 
         @keyframes fadeIn {
@@ -70,18 +305,132 @@
             }
         }
 
+        @keyframes fadeInDelayed {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         @media (max-width: 768px) {
+            nav ul {
+                gap: 1rem;
+                padding: 0 1rem;
+            }
+
             h1 {
                 font-size: clamp(2rem, 10vw, 4rem);
+            }
+
+            .page {
+                padding: 5rem 1rem 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Fléchette Labs</h1>
+    <nav>
+        <ul>
+            <li><a href="#home" onclick="showPage('home', event); return false;" class="nav-link active">Home</a></li>
+            <li><a href="#about" onclick="showPage('about', event); return false;" class="nav-link">About</a></li>
+            <li><a href="#services" onclick="showPage('services', event); return false;" class="nav-link">Services</a></li>
+            <li><a href="#contact" onclick="showPage('contact', event); return false;" class="nav-link">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div id="home" class="page active">
+        <div class="container">
+            <h1>Fléchette Labs</h1>
+              <style>
+    a {
+      color: #8B0A1A; /* Dark Red */
+    }
+  </style>
+            <p class="tagline">R&D and consulting for cybersecurity, and AI safety and security. <a href="https://bt6.gg/">#BT6</a></p>
+        </div>
     </div>
-    
+
+    <div id="about" class="page">
+        <div class="container">
+            <h2>About Fléchette</h2>
+            <p>Fléchette Labs is led by Flétcher, who is part of the top AI red team <a href="https://bt6.gg/">BT6</a>, and has built and led top-performing red teams in government and Fortune 50 organizations. With extensive experience in offensive security operations, Flétcher brings a unique perspective to the evolving challenges of AI safety and security.</p>
+            <p>Our team specializes in the intersection of artificial intelligence and security, combining deep technical expertise with practical experience from high-stakes environments. We understand both the offensive and defensive aspects of modern security challenges, particularly as they relate to AI systems.</p>
+            <p>Fléchette Labs is an R&D lab focused on AI safety and security research and assessments. We serve customers through consulting engagements and research projects, providing actionable insights and solutions to complex security challenges.</p>
+            <p>Our approach is grounded in real-world experience and cutting-edge research. We work with organizations to not only identify vulnerabilities but also to develop robust strategies for protecting AI systems and leveraging AI for enhanced security postures.</p>
+        </div>
+    </div>
+
+    <div id="services" class="page">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="service-item">
+                <h3>Technical Consulting</h3>
+                <p>Primarily serving customers in Government, Defense, and highly-regulated industries:</p>
+                <ul>
+                    <li>Cybersecurity and offensive security, including how to use AI to attack or defend systems</li>
+                    <li>General consulting on AI security and safety</li>
+                    <li>Strategic guidance on AI adoption - policies, tech stacks, and organizational goals</li>
+                    <li>Agent development and training for specialized tasks</li>
+                </ul>
+            </div>
+            <div class="service-item">
+                <h3>Research</h3>
+                <p>AI research projects with a principal focus on:</p>
+                <ul>
+                    <li>AI interpretability and explainability</li>
+                    <li>Security vulnerabilities in AI systems</li>
+                    <li>Novel attack and defense methodologies</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="contact" class="page">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <form id="contactForm" action="https://formspree.io/f/xgvgnpky" method="POST">
+                <div class="form-group">
+                    <label for="name">Name<span class="required">*</span></label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email<span class="required">*</span></label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject<span class="required">*</span></label>
+                    <input type="text" id="subject" name="_subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message<span class="required">*</span></label>
+                    <textarea id="message" name="message" required></textarea>
+                </div>
+                <!-- Honeypot field for bot protection -->
+                <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off">
+                <button type="submit">Send Message</button>
+                <div id="form-status"></div>
+            </form>
+            <p></p>
+            <p>Or send an email directly to the team at c2l0ZWlucXVpcmllc0BmbGVjaGV0dGVsYWJzLmNvbQo=</p>
+        </div>
+    </div>
+
+    <footer>
+        <nav>
+            <ul>
+                <li><a href="#home" onclick="showPage('home', event); return false;" class="nav-link">Home</a></li>
+                <li><a href="#about" onclick="showPage('about', event); return false;" class="nav-link">About</a></li>
+                <li><a href="#services" onclick="showPage('services', event); return false;" class="nav-link">Services</a></li>
+                <li><a href="#contact" onclick="showPage('contact', event); return false;" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+        <p>&copy; 2025 Fléchette Labs. All rights reserved.</p>
+    </footer>
+
     <script>
         // Generate favicon with é character
         function createFavicon() {
@@ -89,18 +438,18 @@
             canvas.width = 64;
             canvas.height = 64;
             const ctx = canvas.getContext('2d');
-            
+
             // Draw background
             ctx.fillStyle = '#2A2E35';
             ctx.fillRect(0, 0, 64, 64);
-            
+
             // Draw é character
             ctx.fillStyle = '#F5F5F5';
             ctx.font = 'bold 48px Arial';
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
             ctx.fillText('é', 32, 34);
-            
+
             // Set as favicon
             const link = document.createElement('link');
             link.type = 'image/x-icon';
@@ -108,8 +457,67 @@
             link.href = canvas.toDataURL('image/x-icon');
             document.head.appendChild(link);
         }
-        
+
         createFavicon();
+
+        // Page navigation
+        function showPage(pageId, event) {
+            const pages = document.querySelectorAll('.page');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+            });
+
+            document.getElementById(pageId).classList.add('active');
+            if (event && event.target) {
+                event.target.classList.add('active');
+            }
+        }
+
+        // Form handling with Formspree
+        document.getElementById('contactForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const form = this;
+            const submitButton = form.querySelector('button[type="submit"]');
+            const statusDiv = document.getElementById('form-status');
+            const originalButtonText = submitButton.textContent;
+
+            // Disable button and show loading state
+            submitButton.textContent = 'Sending...';
+            submitButton.disabled = true;
+            statusDiv.className = '';
+            statusDiv.style.display = 'none';
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    statusDiv.textContent = 'Thank you for your message! We will get back to you soon.';
+                    statusDiv.className = 'success';
+                    form.reset();
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                statusDiv.textContent = 'Oops! There was a problem submitting your form. Please try again.';
+                statusDiv.className = 'error';
+            } finally {
+                submitButton.textContent = originalButtonText;
+                submitButton.disabled = false;
+            }
+        });
     </script>
 </body>
 </html>
